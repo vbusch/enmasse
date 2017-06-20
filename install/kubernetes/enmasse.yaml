@@ -139,30 +139,33 @@ items:
       "http", "port": 8080}], "selector": {"name": "admin"}}}], "parameters": [{"description":
       "Hostname where API server can be reached", "name": "ADDRESS_SPACE_SERVICE_HOST",
       "value": ""}, {"description": "The image to use for the router", "name": "ROUTER_REPO",
-      "value": "enmasseproject/qdrouterd:latest"}, {"description": "The image to use
-      for the router metrics collector", "name": "ROUTER_METRICS_REPO", "value": "enmasseproject/router-metrics:latest"},
+      "value": "jboss-amqmaas-1-tech-preview/amqmaas10-interconnect-openshift:latest"},
+      {"description": "The image to use for the router metrics collector", "name":
+      "ROUTER_METRICS_REPO", "value": "jboss-amqmaas-1-tech-preview/amqmaas10-routermetrics-openshift:latest"},
       {"description": "The link capacity setting for router", "name": "ROUTER_LINK_CAPACITY",
       "value": "50"}, {"description": "The image to use for the configuration service",
-      "name": "CONFIGSERV_REPO", "value": "enmasseproject/configserv:latest"}, {"description":
-      "The docker image to use for the queue scheduler", "name": "QUEUE_SCHEDULER_REPO",
-      "value": "enmasseproject/queue-scheduler:latest"}, {"description": "The image
-      to use for the router agent", "name": "RAGENT_REPO", "value": "enmasseproject/ragent:latest"},
+      "name": "CONFIGSERV_REPO", "value": "jboss-amqmaas-1-tech-preview/amqmaas10-configserv-openshift:latest"},
+      {"description": "The docker image to use for the queue scheduler", "name": "QUEUE_SCHEDULER_REPO",
+      "value": "jboss-amqmaas-1-tech-preview/amqmaas10-queuescheduler-openshift:latest"},
+      {"description": "The image to use for the router agent", "name": "RAGENT_REPO",
+      "value": "jboss-amqmaas-1-tech-preview/amqmaas10-routeragent-openshift:latest"},
       {"description": "The image to use for the subscription services", "name": "SUBSERV_REPO",
-      "value": "enmasseproject/subserv:latest"}, {"description": "The image to use
-      for the console", "name": "CONSOLE_REPO", "value": "enmasseproject/console:latest"},
+      "value": "jboss-amqmaas-1-tech-preview/amqmaas10-subscriptionservice-openshift:latest"},
+      {"description": "The image to use for the console", "name": "CONSOLE_REPO",
+      "value": "jboss-amqmaas-1-tech-preview/amqmaas10-console-openshift:latest"},
       {"description": "The hostname to use for the exposed route for messaging", "name":
       "MESSAGING_HOSTNAME"}, {"description": "The image to use for the MQTT gateway",
-      "name": "MQTT_GATEWAY_REPO", "value": "enmasseproject/mqtt-gateway:latest"},
+      "name": "MQTT_GATEWAY_REPO", "value": "jboss-amqmaas-1-tech-preview/amqmaas10-mqttgateway-openshift:latest"},
       {"description": "The hostname to use for the exposed route for MQTT", "name":
       "MQTT_GATEWAY_HOSTNAME"}, {"description": "The hostname to use for the exposed
       route for the messaging console", "name": "CONSOLE_HOSTNAME"}, {"description":
       "The secret to mount for router private key and certificate", "name": "ROUTER_SECRET",
       "required": true}, {"description": "The secret to mount for MQTT private key
       and certificate", "name": "MQTT_SECRET", "required": true}, {"description":
-      "The image to use for the MQTT LWT", "name": "MQTT_LWT_REPO", "value": "enmasseproject/mqtt-lwt:latest"},
+      "The image to use for the MQTT LWT", "name": "MQTT_LWT_REPO", "value": "jboss-amqmaas-1-tech-preview/amqmaas10-mqttlwt-openshift:latest"},
       {"description": "The instance this infrastructure is deployed for", "name":
       "INSTANCE", "required": true}, {"description": "The image to use for the AMQP
-      Kafka Bridge", "name": "AMQP_KAFKA_BRIDGE_REPO", "value": "enmasseproject/amqp-kafka-bridge:latest"},
+      Kafka Bridge", "name": "AMQP_KAFKA_BRIDGE_REPO", "value": "jboss-amqmaas-1-tech-preview/amqp-kafka-bridge:latest"},
       {"description": "A list of host/port pairs to use for establishing the initial
       connection to the Kafka cluster", "name": "KAFKA_BOOTSTRAP_SERVERS"}]}'
     queue-inmemory.json: '{"apiVersion": "v1", "kind": "Template", "metadata": {"labels":
@@ -183,18 +186,19 @@ items:
       {"name": "hawkular-broker-config"}, "name": "hawkular-openshift-agent"}]}}}}],
       "parameters": [{"description": "Storage capacity required for volume claims",
       "name": "STORAGE_CAPACITY", "value": "2Gi"}, {"description": "The docker image
-      to use for the message broker", "name": "BROKER_REPO", "value": "enmasseproject/artemis:latest"},
+      to use for the message broker", "name": "BROKER_REPO", "value": "jboss-amqmaas-1-tech-preview/amqmaas10-broker-openshift:latest"},
       {"description": "The default image to use as topic forwarder", "name": "TOPIC_FORWARDER_REPO",
-      "value": "enmasseproject/topic-forwarder:latest"}, {"description": "The image
-      to use for the router", "name": "ROUTER_REPO", "value": "enmasseproject/qdrouterd:latest"},
-      {"description": "The link capacity setting for router", "name": "ROUTER_LINK_CAPACITY",
-      "value": "50"}, {"description": "A valid instance name for the instance", "name":
-      "INSTANCE", "required": true}, {"description": "A valid name for the instance",
-      "name": "NAME", "required": true}, {"description": "A valid group id for the
-      instance", "name": "GROUP_ID", "required": true}, {"description": "The address
-      to use for the queue", "name": "ADDRESS", "required": true}, {"description":
-      "Name of secret containing router key and certificate", "name": "COLOCATED_ROUTER_SECRET",
-      "required": true}]}'
+      "value": "jboss-amqmaas-1-tech-preview/amqmaas10-topicforwarder-openshift:latest"},
+      {"description": "The image to use for the router", "name": "ROUTER_REPO", "value":
+      "jboss-amqmaas-1-tech-preview/amqmaas10-interconnect-openshift:latest"}, {"description":
+      "The link capacity setting for router", "name": "ROUTER_LINK_CAPACITY", "value":
+      "50"}, {"description": "A valid instance name for the instance", "name": "INSTANCE",
+      "required": true}, {"description": "A valid name for the instance", "name":
+      "NAME", "required": true}, {"description": "A valid group id for the instance",
+      "name": "GROUP_ID", "required": true}, {"description": "The address to use for
+      the queue", "name": "ADDRESS", "required": true}, {"description": "Name of secret
+      containing router key and certificate", "name": "COLOCATED_ROUTER_SECRET", "required":
+      true}]}'
     queue-persisted.json: '{"apiVersion": "v1", "kind": "Template", "metadata": {"labels":
       {"app": "enmasse"}, "name": "queue-persisted"}, "objects": [{"apiVersion": "v1",
       "kind": "PersistentVolumeClaim", "metadata": {"annotations": {"group_id": "${GROUP_ID}",
@@ -218,17 +222,19 @@ items:
       "name": "hawkular-openshift-agent"}]}}}}], "parameters": [{"description": "Storage
       capacity required for volume claims", "name": "STORAGE_CAPACITY", "value": "2Gi"},
       {"description": "The docker image to use for the message broker", "name": "BROKER_REPO",
-      "value": "enmasseproject/artemis:latest"}, {"description": "The default image
-      to use as topic forwarder", "name": "TOPIC_FORWARDER_REPO", "value": "enmasseproject/topic-forwarder:latest"},
+      "value": "jboss-amqmaas-1-tech-preview/amqmaas10-broker-openshift:latest"},
+      {"description": "The default image to use as topic forwarder", "name": "TOPIC_FORWARDER_REPO",
+      "value": "jboss-amqmaas-1-tech-preview/amqmaas10-topicforwarder-openshift:latest"},
       {"description": "The image to use for the router", "name": "ROUTER_REPO", "value":
-      "enmasseproject/qdrouterd:latest"}, {"description": "The link capacity setting
-      for router", "name": "ROUTER_LINK_CAPACITY", "value": "50"}, {"description":
-      "A valid instance name for the instance", "name": "INSTANCE", "required": true},
-      {"description": "A valid name for the instance", "name": "NAME", "required":
-      true}, {"description": "A valid group id for the instance", "name": "GROUP_ID",
-      "required": true}, {"description": "The address to use for the queue", "name":
-      "ADDRESS", "required": true}, {"description": "Name of secret containing router
-      key and certificate", "name": "COLOCATED_ROUTER_SECRET", "required": true}]}'
+      "jboss-amqmaas-1-tech-preview/amqmaas10-interconnect-openshift:latest"}, {"description":
+      "The link capacity setting for router", "name": "ROUTER_LINK_CAPACITY", "value":
+      "50"}, {"description": "A valid instance name for the instance", "name": "INSTANCE",
+      "required": true}, {"description": "A valid name for the instance", "name":
+      "NAME", "required": true}, {"description": "A valid group id for the instance",
+      "name": "GROUP_ID", "required": true}, {"description": "The address to use for
+      the queue", "name": "ADDRESS", "required": true}, {"description": "Name of secret
+      containing router key and certificate", "name": "COLOCATED_ROUTER_SECRET", "required":
+      true}]}'
     topic-inmemory.json: '{"apiVersion": "v1", "kind": "Template", "metadata": {"labels":
       {"app": "enmasse"}, "name": "topic-inmemory"}, "objects": [{"apiVersion": "extensions/v1beta1",
       "kind": "Deployment", "metadata": {"annotations": {"group_id": "${GROUP_ID}",
@@ -259,17 +265,19 @@ items:
       "name": "hawkular-openshift-agent"}]}}}}], "parameters": [{"description": "Storage
       capacity required for volume claims", "name": "STORAGE_CAPACITY", "value": "2Gi"},
       {"description": "The docker image to use for the message broker", "name": "BROKER_REPO",
-      "value": "enmasseproject/artemis:latest"}, {"description": "The default image
-      to use as topic forwarder", "name": "TOPIC_FORWARDER_REPO", "value": "enmasseproject/topic-forwarder:latest"},
+      "value": "jboss-amqmaas-1-tech-preview/amqmaas10-broker-openshift:latest"},
+      {"description": "The default image to use as topic forwarder", "name": "TOPIC_FORWARDER_REPO",
+      "value": "jboss-amqmaas-1-tech-preview/amqmaas10-topicforwarder-openshift:latest"},
       {"description": "The image to use for the router", "name": "ROUTER_REPO", "value":
-      "enmasseproject/qdrouterd:latest"}, {"description": "The link capacity setting
-      for router", "name": "ROUTER_LINK_CAPACITY", "value": "50"}, {"description":
-      "A valid instance name for the instance", "name": "INSTANCE", "required": true},
-      {"description": "A valid name for the instance", "name": "NAME", "required":
-      true}, {"description": "A valid group id for the instance", "name": "GROUP_ID",
-      "required": true}, {"description": "The address to use for the topic", "name":
-      "ADDRESS", "required": true}, {"description": "Name of secret containing router
-      key and certificate", "name": "COLOCATED_ROUTER_SECRET", "required": true}]}'
+      "jboss-amqmaas-1-tech-preview/amqmaas10-interconnect-openshift:latest"}, {"description":
+      "The link capacity setting for router", "name": "ROUTER_LINK_CAPACITY", "value":
+      "50"}, {"description": "A valid instance name for the instance", "name": "INSTANCE",
+      "required": true}, {"description": "A valid name for the instance", "name":
+      "NAME", "required": true}, {"description": "A valid group id for the instance",
+      "name": "GROUP_ID", "required": true}, {"description": "The address to use for
+      the topic", "name": "ADDRESS", "required": true}, {"description": "Name of secret
+      containing router key and certificate", "name": "COLOCATED_ROUTER_SECRET", "required":
+      true}]}'
     topic-persisted.json: '{"apiVersion": "v1", "kind": "Template", "metadata": {"labels":
       {"app": "enmasse"}, "name": "topic-persisted"}, "objects": [{"apiVersion": "v1",
       "kind": "PersistentVolumeClaim", "metadata": {"annotations": {"group_id": "${GROUP_ID}",
@@ -304,18 +312,19 @@ items:
       {"configMap": {"name": "hawkular-broker-config"}, "name": "hawkular-openshift-agent"}]}}}}],
       "parameters": [{"description": "Storage capacity required for volume claims",
       "name": "STORAGE_CAPACITY", "value": "2Gi"}, {"description": "The docker image
-      to use for the message broker", "name": "BROKER_REPO", "value": "enmasseproject/artemis:latest"},
+      to use for the message broker", "name": "BROKER_REPO", "value": "jboss-amqmaas-1-tech-preview/amqmaas10-broker-openshift:latest"},
       {"description": "The default image to use as topic forwarder", "name": "TOPIC_FORWARDER_REPO",
-      "value": "enmasseproject/topic-forwarder:latest"}, {"description": "The image
-      to use for the router", "name": "ROUTER_REPO", "value": "enmasseproject/qdrouterd:latest"},
-      {"description": "The link capacity setting for router", "name": "ROUTER_LINK_CAPACITY",
-      "value": "50"}, {"description": "A valid instance name for the instance", "name":
-      "INSTANCE", "required": true}, {"description": "A valid name for the instance",
-      "name": "NAME", "required": true}, {"description": "A valid group id for the
-      instance", "name": "GROUP_ID", "required": true}, {"description": "The address
-      to use for the topic", "name": "ADDRESS", "required": true}, {"description":
-      "Name of secret containing router key and certificate", "name": "COLOCATED_ROUTER_SECRET",
-      "required": true}]}'
+      "value": "jboss-amqmaas-1-tech-preview/amqmaas10-topicforwarder-openshift:latest"},
+      {"description": "The image to use for the router", "name": "ROUTER_REPO", "value":
+      "jboss-amqmaas-1-tech-preview/amqmaas10-interconnect-openshift:latest"}, {"description":
+      "The link capacity setting for router", "name": "ROUTER_LINK_CAPACITY", "value":
+      "50"}, {"description": "A valid instance name for the instance", "name": "INSTANCE",
+      "required": true}, {"description": "A valid name for the instance", "name":
+      "NAME", "required": true}, {"description": "A valid group id for the instance",
+      "name": "GROUP_ID", "required": true}, {"description": "The address to use for
+      the topic", "name": "ADDRESS", "required": true}, {"description": "Name of secret
+      containing router key and certificate", "name": "COLOCATED_ROUTER_SECRET", "required":
+      true}]}'
   kind: ConfigMap
   metadata:
     labels:
@@ -342,7 +351,7 @@ items:
             value: 'false'
           - name: INSTANCE_IDLE_TIMEOUT_SECONDS
             value: '0'
-          image: enmasseproject/address-controller:latest
+          image: jboss-amqmaas-1-tech-preview/amqmaas10-addresscontroller-openshift:latest
           livenessProbe:
             tcpSocket:
               port: http
