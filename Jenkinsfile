@@ -13,7 +13,7 @@ node {
         }
     }
     stage('cleanup') {
-        archive 'install/**'
+        archive 'enmasse-latest.tar.gz'
     }
     deleteDir()
 }
