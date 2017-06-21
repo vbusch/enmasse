@@ -5,7 +5,7 @@ node {
         sh 'make'
     }
     stage('system tests') {
-        withEnv(['SCRIPTS=https://raw.githubusercontent.com/EnMasseProject/travis-scripts/master', 'OPENSHIFT_PROJECT=mqtt-gateway-ci']) {
+        withEnv(['SCRIPTS=https://raw.githubusercontent.com/EnMasseProject/travis-scripts/master', 'OPENSHIFT_PROJECT=enmasse-ci']) {
             sh 'env'
             sh 'rm -rf systemtests'
             sh 'git clone https://github.com/EnMasseProject/systemtests.git'
