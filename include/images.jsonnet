@@ -1,5 +1,5 @@
 local version = std.extVar("VERSION");
-local project = "jboss-amqmaas-1-tech-preview";
+local project = "maas-ci";
 {
   image(name)::
     project + "/" + name + ":" + version,

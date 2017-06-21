@@ -78,13 +78,13 @@ objects:
     value: 2Gi
   - description: The docker image to use for the message broker
     name: BROKER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-broker-openshift:latest
+    value: maas-ci/amqmaas10-broker-openshift:latest
   - description: The default image to use as topic forwarder
     name: TOPIC_FORWARDER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-topicforwarder-openshift:latest
+    value: maas-ci/amqmaas10-topicforwarder-openshift:latest
   - description: The image to use for the router
     name: ROUTER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-interconnect-openshift:latest
+    value: maas-ci/amqmaas10-interconnect-openshift:latest
   - description: The link capacity setting for router
     name: ROUTER_LINK_CAPACITY
     value: '50'
@@ -191,13 +191,13 @@ objects:
     value: 2Gi
   - description: The docker image to use for the message broker
     name: BROKER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-broker-openshift:latest
+    value: maas-ci/amqmaas10-broker-openshift:latest
   - description: The default image to use as topic forwarder
     name: TOPIC_FORWARDER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-topicforwarder-openshift:latest
+    value: maas-ci/amqmaas10-topicforwarder-openshift:latest
   - description: The image to use for the router
     name: ROUTER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-interconnect-openshift:latest
+    value: maas-ci/amqmaas10-interconnect-openshift:latest
   - description: The link capacity setting for router
     name: ROUTER_LINK_CAPACITY
     value: '50'
@@ -336,13 +336,13 @@ objects:
     value: 2Gi
   - description: The docker image to use for the message broker
     name: BROKER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-broker-openshift:latest
+    value: maas-ci/amqmaas10-broker-openshift:latest
   - description: The default image to use as topic forwarder
     name: TOPIC_FORWARDER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-topicforwarder-openshift:latest
+    value: maas-ci/amqmaas10-topicforwarder-openshift:latest
   - description: The image to use for the router
     name: ROUTER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-interconnect-openshift:latest
+    value: maas-ci/amqmaas10-interconnect-openshift:latest
   - description: The link capacity setting for router
     name: ROUTER_LINK_CAPACITY
     value: '50'
@@ -497,13 +497,13 @@ objects:
     value: 2Gi
   - description: The docker image to use for the message broker
     name: BROKER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-broker-openshift:latest
+    value: maas-ci/amqmaas10-broker-openshift:latest
   - description: The default image to use as topic forwarder
     name: TOPIC_FORWARDER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-topicforwarder-openshift:latest
+    value: maas-ci/amqmaas10-topicforwarder-openshift:latest
   - description: The image to use for the router
     name: ROUTER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-interconnect-openshift:latest
+    value: maas-ci/amqmaas10-interconnect-openshift:latest
   - description: The link capacity setting for router
     name: ROUTER_LINK_CAPACITY
     value: '50'
@@ -1049,33 +1049,33 @@ objects:
     value: ''
   - description: The image to use for the router
     name: ROUTER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-interconnect-openshift:latest
+    value: maas-ci/amqmaas10-interconnect-openshift:latest
   - description: The image to use for the router metrics collector
     name: ROUTER_METRICS_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-routermetrics-openshift:latest
+    value: maas-ci/amqmaas10-routermetrics-openshift:latest
   - description: The link capacity setting for router
     name: ROUTER_LINK_CAPACITY
     value: '50'
   - description: The image to use for the configuration service
     name: CONFIGSERV_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-configserv-openshift:latest
+    value: maas-ci/amqmaas10-configserv-openshift:latest
   - description: The docker image to use for the queue scheduler
     name: QUEUE_SCHEDULER_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-queuescheduler-openshift:latest
+    value: maas-ci/amqmaas10-queuescheduler-openshift:latest
   - description: The image to use for the router agent
     name: RAGENT_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-routeragent-openshift:latest
+    value: maas-ci/amqmaas10-routeragent-openshift:latest
   - description: The image to use for the subscription services
     name: SUBSERV_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-subscriptionservice-openshift:latest
+    value: maas-ci/amqmaas10-subscriptionservice-openshift:latest
   - description: The image to use for the console
     name: CONSOLE_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-console-openshift:latest
+    value: maas-ci/amqmaas10-console-openshift:latest
   - description: The hostname to use for the exposed route for messaging
     name: MESSAGING_HOSTNAME
   - description: The image to use for the MQTT gateway
     name: MQTT_GATEWAY_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-mqttgateway-openshift:latest
+    value: maas-ci/amqmaas10-mqttgateway-openshift:latest
   - description: The hostname to use for the exposed route for MQTT
     name: MQTT_GATEWAY_HOSTNAME
   - description: The hostname to use for the exposed route for the messaging console
@@ -1088,13 +1088,13 @@ objects:
     required: true
   - description: The image to use for the MQTT LWT
     name: MQTT_LWT_REPO
-    value: jboss-amqmaas-1-tech-preview/amqmaas10-mqttlwt-openshift:latest
+    value: maas-ci/amqmaas10-mqttlwt-openshift:latest
   - description: The instance this infrastructure is deployed for
     name: INSTANCE
     required: true
   - description: The image to use for the AMQP Kafka Bridge
     name: AMQP_KAFKA_BRIDGE_REPO
-    value: jboss-amqmaas-1-tech-preview/amqp-kafka-bridge:latest
+    value: maas-ci/amqp-kafka-bridge:latest
   - description: A list of host/port pairs to use for establishing the initial connection
       to the Kafka cluster
     name: KAFKA_BOOTSTRAP_SERVERS
@@ -1219,4 +1219,4 @@ parameters:
   value: 'false'
 - description: The docker image to use for the address controller
   name: ADDRESS_CONTROLLER_REPO
-  value: jboss-amqmaas-1-tech-preview/amqmaas10-addresscontroller-openshift:latest
+  value: maas-ci/amqmaas10-addresscontroller-openshift:latest
