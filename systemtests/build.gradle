@@ -1,0 +1,26 @@
+ext {
+   openshiftClientVersion = '2.0.1'
+   vertxVersion = '3.4.2-SNAPSHOT'
+   junitVersion = '4.12'
+   pahoVersion = '1.1.0'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+dependencies {
+    compile project(':admin:common-lib:amqp')
+    compile "org.slf4j:slf4j-api:${slf4jVersion}"
+    compile "org.slf4j:slf4j-simple:${slf4jVersion}"
+    compile "io.fabric8:openshift-client:${openshiftClientVersion}"
+    compile "io.vertx:vertx-proton:${vertxVersion}"
+    compile "org.eclipse.paho:org.eclipse.paho.client.mqttv3:${pahoVersion}"
+    testCompile "junit:junit:${junitVersion}"
+}
+
+task systemtest(type: Test) {
+    environment OPENSHIFT_PROJECT: openShiftProject, OPENSHIFT_USER: openShiftUser, OPENSHIFT_PASSWD: openShiftPasswd, OPENSHIFT_MASTER_URL: openShiftMaster, OPENSHIFT_NAMESPACE: openShiftProject, OPENSHIFT_TOKEN: openShiftToken
+}
