@@ -17,7 +17,8 @@ endif
 DOCKER_TARGETS = docker_build docker_tag docker_push
 BUILD_TARGETS  = init build test package clean $(DOCKER_TARGETS) coverage
 
-all: init build test package docker_build
+all: init build test package 
+#docker_build
 
 # TODO: get rid of the below target
 build_amqp_module:
@@ -25,6 +26,9 @@ build_amqp_module:
 
 build_java: build_amqp_module
 	mvn test package -B $(MAVEN_ARGS)
+	
+package_java:
+	mvn package -DskipTests=true	
 
 clean_java:
 	mvn -B clean
@@ -55,4 +59,4 @@ systemtests:
 	OPENSHIFT_PROJECT=$(OPENSHIFT_PROJECT) OPENSHIFT_MULTITENANT=$(MULTITENANT) OPENSHIFT_TOKEN=$(OPENSHIFT_TOKEN) OPENSHIFT_USER=$(OPENSHIFT_USER) OPENSHIFT_URL=$(OPENSHIFT_MASTER) OPENSHIFT_USE_TLS=true ./systemtests/scripts/run_tests.sh $(SYSTEMTEST_ARGS)
 
 
-.PHONY: $(BUILD_TARGETS) $(DOCKER_TARGETS) $(BUILD_DIRS) $(DOCKER_DIRS) build_java deploy systemtests clean_java
+.PHONY: $(BUILD_TARGETS)  $(BUILD_DIRS) $(DOCKER_DIRS) build_java deploy systemtests clean_java
