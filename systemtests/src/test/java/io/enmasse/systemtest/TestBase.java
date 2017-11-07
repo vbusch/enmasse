@@ -39,7 +39,6 @@ public abstract class TestBase {
     protected static final Environment environment = new Environment();
     protected static final AddressSpace defaultAddressSpace = environment.isMultitenant() ? new AddressSpace("testspace", "testspace")
             : new AddressSpace("default", environment.namespace());
-    protected static final String STANDARD_ADDRESS_SPACE_TYPE = "standard";
 
     protected static final OpenShift openShift = new OpenShift(environment, environment.namespace(), defaultAddressSpace.getNamespace());
     private static final GlobalLogCollector logCollector = new GlobalLogCollector(openShift,
@@ -57,7 +56,7 @@ public abstract class TestBase {
 
     @Before
     public void setup() throws Exception {
-        addressApiClient = new AddressApiClient(openShift.getRestEndpoint());
+        addressApiClient = new AddressApiClient(openShift);
         if (createDefaultAddressSpace()) {
             if (environment.isMultitenant()) {
                 Logging.log.info("Test is running in multitenant mode");
@@ -92,10 +91,10 @@ public abstract class TestBase {
         }
     }
 
-    protected AddressSpace createAddressSpace(AddressSpace addressSpace, String authService, String addrSpaceType) throws Exception {
+    protected AddressSpace createAddressSpace(AddressSpace addressSpace, String authService) throws Exception {
         if (!TestUtils.existAddressSpace(addressApiClient, addressSpace.getName())) {
             Logging.log.info("Address space '" + addressSpace + "' doesn't exist and will be created.");
-            addressApiClient.createAddressSpace(addressSpace, authService, addrSpaceType);
+            addressApiClient.createAddressSpace(addressSpace, authService);
             logCollector.startCollecting(addressSpace.getNamespace());
             TestUtils.waitForAddressSpaceReady(addressApiClient, addressSpace.getName());
             if (addressSpace.equals(defaultAddressSpace)) {
@@ -107,10 +106,6 @@ public abstract class TestBase {
         return addressSpace;
     }
 
-    protected AddressSpace createAddressSpace(AddressSpace addressSpace, String authService) throws Exception {
-        return createAddressSpace(addressSpace, authService, STANDARD_ADDRESS_SPACE_TYPE);
-    }
-
     protected void deleteAddressSpace(AddressSpace addressSpace) throws Exception {
         addressApiClient.deleteAddressSpace(addressSpace);
         TestUtils.waitForAddressSpaceDeleted(openShift, addressSpace);
@@ -119,7 +114,7 @@ public abstract class TestBase {
 
     //!TODO: protected void appendAddressSpace(...)
 
-    protected JsonObject getAddressSpace(String name) throws InterruptedException, TimeoutException, ExecutionException {
+    protected JsonObject getAddressSpace(String name) throws Exception {
         return addressApiClient.getAddressSpace(name);
     }
 

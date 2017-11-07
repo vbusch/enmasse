@@ -1,3 +1,4 @@
+TOPDIR=$(dir $(lastword $(MAKEFILE_LIST)))
 BUILD_DIRS     = ragent subserv agent none-authservice templates
 DOCKER_DIRS	   = topic-forwarder artemis address-controller queue-scheduler configserv keycloak keycloak-controller router router-metrics mqtt-gateway mqtt-lwt
 FULL_BUILD 	   = true
@@ -16,15 +17,12 @@ endif
 
 DOCKER_TARGETS = docker_build docker_tag docker_push
 BUILD_TARGETS  = init build test package clean $(DOCKER_TARGETS) coverage
+INSTALLDIR=$(CURDIR)/templates/install
 
 all: init build test package 
 #docker_build
 
-# TODO: get rid of the below target
-build_amqp_module:
-	$(MAKE) -C artemis build_amqp_module
-
-build_java: build_amqp_module
+build_java:
 	mvn test package -B $(MAVEN_ARGS)
 	
 package_java:
@@ -34,6 +32,12 @@ clean_java:
 	mvn -B clean
 
 clean: clean_java
+
+docs:
+	cd $(INSTALLDIR) && ./deploy-openshift.sh -g -m "https://localhost:8443" -n enmasse -o singletenant > $(CURDIR)/documentation/service_admin/manual_openshift_singletenant.adoc
+	cd $(INSTALLDIR) && ./deploy-openshift.sh -g -m "https://localhost:8443" -n enmasse -o multitenant > $(CURDIR)/documentation/service_admin/manual_openshift_multitenant.adoc
+	cd $(INSTALLDIR) && ./deploy-kubernetes.sh -g -m "https://localhost:8443" -n enmasse -o singletenant > $(CURDIR)/documentation/service_admin/manual_kubernetes_singletenant.adoc
+	cd $(INSTALLDIR) && ./deploy-kubernetes.sh -g -m "https://localhost:8443" -n enmasse -o multitenant > $(CURDIR)/documentation/service_admin/manual_kubernetes_multitenant.adoc
 
 docker_build: build_java
 
@@ -58,5 +62,7 @@ deploy:
 systemtests:
 	OPENSHIFT_PROJECT=$(OPENSHIFT_PROJECT) OPENSHIFT_MULTITENANT=$(MULTITENANT) OPENSHIFT_TOKEN=$(OPENSHIFT_TOKEN) OPENSHIFT_USER=$(OPENSHIFT_USER) OPENSHIFT_URL=$(OPENSHIFT_MASTER) OPENSHIFT_USE_TLS=true ./systemtests/scripts/run_tests.sh $(SYSTEMTEST_ARGS)
 
+client_install:
+	npm install -g cli-rhea
 
 .PHONY: $(BUILD_TARGETS)  $(BUILD_DIRS) $(DOCKER_DIRS) build_java deploy systemtests clean_java

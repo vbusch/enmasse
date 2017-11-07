@@ -10,7 +10,6 @@ node('enmasse') {
             stage ('build') {
                 try {
                     withCredentials([string(credentialsId: 'docker-registry-host', variable: 'DOCKER_REGISTRY')]) {
-                        sh 'make build_amqp_module'
                         sh 'MOCHA_ARGS="--reporter=mocha-junit-reporter" TAG=$BUILD_TAG make'
                         sh 'cat templates/install/openshift/enmasse.yaml'
                     }
@@ -26,12 +25,11 @@ node('enmasse') {
                 }
             }
             stage('start openshift') {
-                sh 'oc cluster up $OC_CLUSTER_ARGS'
+                sh './systemtests/scripts/setup-openshift.sh'
                 sh 'sudo chmod -R 777 /var/lib/origin/openshift.local.config'
             }
-            stage('setup openshift') {
-                sh 'oc login -u system:admin'
-                sh './systemtests/scripts/provision-storage.sh /tmp/mydir pv01'
+            stage('install clients'){
+                sh 'sudo make client_install'
             }
             stage('system tests') {
                 withCredentials([string(credentialsId: 'openshift-host', variable: 'OPENSHIFT_URL'), usernamePassword(credentialsId: 'openshift-credentials', passwordVariable: 'OPENSHIFT_PASSWD', usernameVariable: 'OPENSHIFT_USER')]) {
@@ -50,7 +48,7 @@ node('enmasse') {
             archive 'templates/install/**'
         }
         stage('teardown openshift') {
-            sh 'oc cluster down'
+            sh './systemtests/scripts/teardown-openshift.sh'
         }
         stage('notify mailing list') {
             if (result.equals("failure")) {
