@@ -15,6 +15,7 @@ www/help.html:  ../documentation/messaging_app_developer/*.adoc ../documentation
         endif
 
 package: build
+	mkdir -p build
 	tar -czf build/agent.tgz bin lib www package.json
 
 test: npm_test
