@@ -1511,6 +1511,10 @@ objects:
               name: amqp
             - containerPort: 5671
               name: amqps
+            - containerPort: 61616
+              name: core
+            - containerPort: 61613
+              name: openwire
             - containerPort: 55671
               name: amqps-normal
             - containerPort: 8161
@@ -1581,6 +1585,12 @@ objects:
       - name: amqps
         port: 5671
         targetPort: amqps
+      - name: core
+        port: 61616
+        targetPort: core
+      - name: openwire
+        port: 61613
+        targetPort: openwire
       selector:
         role: broker
   - apiVersion: extensions/v1beta1
@@ -1739,8 +1749,6 @@ objects:
       spec:
         containers:
         - env:
-          - name: CA_DIR
-            value: /ca-cert
           - name: ENABLE_RBAC
             value: ${ENABLE_RBAC}
           - name: ENVIRONMENT
@@ -1770,17 +1778,11 @@ objects:
             requests:
               memory: 512Mi
           volumeMounts:
-          - mountPath: /ca-cert
-            name: ca-cert
-            readOnly: true
           - mountPath: /address-controller-cert
             name: address-controller-cert
             readOnly: true
         serviceAccount: enmasse-service-account
         volumes:
-        - name: ca-cert
-          secret:
-            secretName: ${ENMASSE_CA_SECRET}
         - name: address-controller-cert
           secret:
             secretName: ${ADDRESS_CONTROLLER_CERT_SECRET}
@@ -1819,9 +1821,6 @@ parameters:
 - description: The docker image to use for the address controller
   name: ADDRESS_CONTROLLER_REPO
   value: docker.io/enmasseproject/address-controller:latest
-- description: Name of the secret containing the EnMasse CA
-  name: ENMASSE_CA_SECRET
-  value: enmasse-ca
 - description: Name of the secret containing the address controller certificate
   name: ADDRESS_CONTROLLER_CERT_SECRET
   value: address-controller-cert

@@ -10,7 +10,7 @@ node('enmasse') {
             stage ('build') {
                 try {
                     withCredentials([string(credentialsId: 'docker-registry-host', variable: 'DOCKER_REGISTRY')]) {
-                        sh 'MOCHA_ARGS="--reporter=mocha-junit-reporter" TAG=$BUILD_TAG make'
+                        sh 'MOCHA_ARGS="--reporter=mocha-junit-reporter" COMMIT=$BUILD_TAG make'
                         sh 'cat templates/install/openshift/enmasse.yaml'
                     }
                 } finally {
@@ -19,9 +19,9 @@ node('enmasse') {
             }
             stage ('push docker image') {
                 withCredentials([string(credentialsId: 'docker-registry-host', variable: 'DOCKER_REGISTRY'), usernamePassword(credentialsId: 'docker-registry-credentials', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
-                    sh 'TAG=$BUILD_TAG make docker_tag'
+                    sh 'TAG=$BUILD_TAG COMMIT=$BUILD_TAG make docker_tag'
                     sh '$DOCKER login -u $DOCKER_USER -p $DOCKER_PASS $DOCKER_REGISTRY'
-                    sh 'TAG=$BUILD_TAG make docker_push'
+                    sh 'TAG=$BUILD_TAG COMMIT=$BUILD_TAG make docker_push'
                 }
             }
             stage('start openshift') {

@@ -22,12 +22,6 @@ clean_java:
 
 clean: clean_java
 
-docs:
-	cd $(INSTALLDIR) && ./deploy-openshift.sh -g -m "https://localhost:8443" -n enmasse -o singletenant > $(CURDIR)/documentation/service_admin/manual_openshift_singletenant.adoc
-	cd $(INSTALLDIR) && ./deploy-openshift.sh -g -m "https://localhost:8443" -n enmasse -o multitenant > $(CURDIR)/documentation/service_admin/manual_openshift_multitenant.adoc
-	cd $(INSTALLDIR) && ./deploy-kubernetes.sh -g -m "https://localhost:8443" -n enmasse -o singletenant > $(CURDIR)/documentation/service_admin/manual_kubernetes_singletenant.adoc
-	cd $(INSTALLDIR) && ./deploy-kubernetes.sh -g -m "https://localhost:8443" -n enmasse -o multitenant > $(CURDIR)/documentation/service_admin/manual_kubernetes_multitenant.adoc
-
 docker_build: build_java
 
 coverage: java_coverage
@@ -46,7 +40,7 @@ $(DOCKER_DIRS):
 	$(MAKE) FULL_BUILD=$(FULL_BUILD) -C $@ $(MAKECMDGOALS)
 
 deploy:
-	./templates/install/deploy-openshift.sh -n $(OPENSHIFT_PROJECT) -u $(OPENSHIFT_USER) -m $(OPENSHIFT_MASTER) -o $(MODE) -a "standard none"
+	./templates/install/deploy-openshift.sh -n $(OPENSHIFT_PROJECT) -u $(OPENSHIFT_USER) -m $(OPENSHIFT_MASTER) -o multitenant -a "standard none"
 
 systemtests:
 	OPENSHIFT_PROJECT=$(OPENSHIFT_PROJECT) OPENSHIFT_TOKEN=$(OPENSHIFT_TOKEN) OPENSHIFT_USER=$(OPENSHIFT_USER) OPENSHIFT_URL=$(OPENSHIFT_MASTER) OPENSHIFT_USE_TLS=true ./systemtests/scripts/run_tests.sh $(SYSTEMTEST_ARGS)

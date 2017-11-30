@@ -22,4 +22,5 @@ public class BrokeredTestBase extends TestBaseWithDefault {
     protected AddressSpaceType getAddressSpaceType() {
         return AddressSpaceType.BROKERED;
     }
+
 }

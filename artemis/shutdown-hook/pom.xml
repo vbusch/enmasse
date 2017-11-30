@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.enmasse</groupId>
     <artifactId>artemis</artifactId>
-    <version>0.15.1</version>
+    <version>0.15.2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>shutdown-hook</artifactId>
@@ -96,7 +96,6 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <finalName>shutdown-hook</finalName>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <mainClass>enmasse.broker.prestop.Main</mainClass>

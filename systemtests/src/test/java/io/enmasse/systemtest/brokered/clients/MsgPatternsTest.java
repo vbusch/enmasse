@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class MsgPatternsTest extends ClientTestBase {
 
     @Before
-    public void setUpCommonArguments(){
+    public void setUpCommonArguments() {
         arguments.put(Argument.USERNAME, "test");
         arguments.put(Argument.PASSWORD, "test");
         arguments.put(Argument.LOG_MESSAGES, "json");
@@ -86,6 +86,8 @@ public class MsgPatternsTest extends ClientTestBase {
         Future<Boolean> recResult = subscriber.runAsync();
         Future<Boolean> recResult2 = subscriber2.runAsync();
 
+        waitForSubscribers(defaultAddressSpace, dest.getAddress(), 2);
+
         assertTrue(sender.run());
         assertTrue(recResult.get());
         assertTrue(recResult2.get());
@@ -125,7 +127,7 @@ public class MsgPatternsTest extends ClientTestBase {
         Destination dest = Destination.queue("drain-queue");
         setAddresses(defaultAddressSpace, dest);
 
-        int count = new Random().nextInt(200 - 10) + 10;
+        int count = 200;
 
         arguments.put(Argument.BROKER, getRouteEndpoint(defaultAddressSpace).toString());
         arguments.put(Argument.ADDRESS, dest.getAddress());
@@ -143,7 +145,7 @@ public class MsgPatternsTest extends ClientTestBase {
         assertEquals(count, receiver.getMessages().size());
     }
 
-    protected void doMessageSelectorQueueTest(AbstractClient sender, AbstractClient receiver) throws Exception{
+    protected void doMessageSelectorQueueTest(AbstractClient sender, AbstractClient receiver) throws Exception {
         Destination queue = Destination.queue("selector-queue");
         setAddresses(defaultAddressSpace, queue);
 
@@ -192,7 +194,7 @@ public class MsgPatternsTest extends ClientTestBase {
     }
 
     protected void doMessageSelectorTopicTest(AbstractClient sender, AbstractClient subscriber,
-                                              AbstractClient subscriber2, AbstractClient subscriber3) throws Exception{
+                                              AbstractClient subscriber2, AbstractClient subscriber3) throws Exception {
         Destination topic = Destination.topic("selector-topic");
         setAddresses(defaultAddressSpace, topic);
 
@@ -219,12 +221,14 @@ public class MsgPatternsTest extends ClientTestBase {
 
         //set up subscriber3
         arguments.put(Argument.SELECTOR, "a AND b");
-        arguments.put(Argument.TIMEOUT, "1");
+        arguments.put(Argument.TIMEOUT, "30"); //because this client should receive no messages
         subscriber3.setArguments(arguments);
 
         Future<Boolean> result1 = subscriber.runAsync();
         Future<Boolean> result2 = subscriber2.runAsync();
         Future<Boolean> result3 = subscriber3.runAsync();
+
+        waitForSubscribers(defaultAddressSpace, topic.getAddress(), 3);
 
         assertTrue(sender.run());
         assertTrue(result1.get());

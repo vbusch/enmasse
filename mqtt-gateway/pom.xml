@@ -3,7 +3,7 @@
   <parent>
     <groupId>io.enmasse</groupId>
     <artifactId>enmasse</artifactId>
-    <version>0.15.1</version>
+    <version>0.15.2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>mqtt-gateway</artifactId>
@@ -97,25 +97,6 @@
         	<execution>
           	<goals>
             	<goal>repackage</goal>
-            </goals>
-            <configuration>
-            	<finalName>mqtt-gateway</finalName>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-      	<groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-        	<descriptor>src/assembly/bin.xml</descriptor>
-          <finalName>mqtt-gateway-${project.version}</finalName>
-        </configuration>
-        <executions>
-        	<execution>
-            <phase>package</phase>
-            <goals>
-            	<goal>single</goal>
             </goals>
           </execution>
         </executions>

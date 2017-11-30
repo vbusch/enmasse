@@ -4,20 +4,21 @@
 
 To build EnMasse, you need
 
-    * Java JDK >= 1.8
-    * GNU GCC C++
-    * Python
-    * Git
-    * Node.js
-    * npm
-    * docker
-    * maven >=3.1
-    * asciidoctor
+   * [JDK](http://openjdk.java.net/) >= 1.8
+   * [Apache Maven](https://maven.apache.org/) >= 3.0
+   * [Python](https://www.python.org/)
+   * [Docker](https://www.docker.com/)
+   * [GNU Make](https://www.gnu.org/software/make/)
+   * [Node.js](https://nodejs.org/en/) >= 6 (only for node.js unit tests)
+   * [Npm >= 3](https://www.npmjs.com/) (only for node.js unit tests)
+   * [GNU GCC C++](https://gcc.gnu.org/) (to build jsonnet tool)
+   * [Asciidoctor](http://asciidoc.org/) (optional, only required for docs)
+   * [Python Pip](https://pypi.python.org/pypi/pip) (optional, only required for systemtests)
 
-The EnMasse java modules are built using maven. Node modules are built using make. Docker images
+The EnMasse java modules are built using maven. Node.js modules are built using make. All docker images
 are built using make.
 
-Note: asciidoctor, node.js and npm are optional. asciidoctor is only
+*Note*: asciidoctor, node.js and npm are optional. asciidoctor is only
 required to build the help pages for the console. node.js and npm are
 only required to run the unit tests for ragent, console and subserv.
 
@@ -32,48 +33,50 @@ can be initialized:
 
 ### Pre-installation
 
-   * `npm install -g mocha-junit-reporter`
-   * `npm install -g rhea`
-   * `npm install -g debug`
+The following node.js modules are required for the ragent, agent and subserv unit tests to work:
+
+    npm install -g mocha-junit-reporter
+    npm install -g rhea
+    npm install -g debug
 
 *Note*: Make sure docker daemon is in running state.
 
-#### For building and running EnMasse unit tests and building docker image:
+#### Doing a full build, run unit tests and build docker images:
 
     make
 
 This can be run at the top level or within each module. You can also run the 'build', 'test', and 'package' targets individually.
 This builds all modules including java.
 
-#### Build a docker image and push them to docker hub:
+
+#### Tagging and push images to a docker registry
 
     export DOCKER_ORG=myorg
-    docker login -u myuser -p mypassword docker.io
-    make docker_build
+    export DOCKER_REGISTRY=docker.io
+
+    docker login -u myuser -p mypassword $DOCKER_REGISTRY
+
+    # To generate templates to pull images from your docker hub org
+    make -C templates
+
     make docker_tag
     make docker_push
 
-#### Fast building of EnMasse and pushing images to docker registry in local OpenShift instance (avoids pushing to docker hub)
+*Note*: If you are using OpenShift and 'oc cluster up', you can push images directly to the builtin registry
+by setting `DOCKER_ORG=myproject` and `DOCKER_REGISTRY=172.30.1.1:5000` instead.
 
-    export DOCKER_ORG=myproject
-    export DOCKER_REGISTRY=172.30.1.1:5000
-    docker login -u myproject -p `oc whoami -t` 172.30.1.1:5000
-    make MAVEN_ARGS="-DskipTests"
-    make docker_tag
-    make docker_push
-
-#### Deploying to an OpenShift instance
+#### Deploying to an OpenShift instance assuming already logged in
 
     make deploy
 
-### Systemtests
-This assumes that the above deploy step has been run
+#### Running smoketests against a deployed instance
 
-#### To run systemtests, you need
-    * npm
-    * python pip
+    make SYSTEMTEST_ARGS=SmokeTest systemtests
 
-#### Install clients
+### Running full systemtest suite
+
+#### Install client dependencies
+
     make client_install
 
 #### Running the systemtests
@@ -82,22 +85,23 @@ This assumes that the above deploy step has been run
     
 #### Run single system test
 
-    make SYSTEMTEST_ARGS=SmokeTest systemtests
+    make SYSTEMTEST_ARGS="io.enmasse.systemtest.standard.QueueTest#testCreateDeleteQueue" systemtests
     
 ## Reference
 
-This is a reference of the different make targets and options that can be set.
+This is a reference of the different make targets and options that can be set when building an
+individual module:
 
 #### Make targets
 
-    * `build`        - build
-    * `test`         - run tests
-    * `package`      - create artifact bundle
-    * `docker_build` - build docker image
-    * `docker_tag`   - tag docker image
-    * `docker_push`  - push docker image
-    * `deploy`       - deploys the built templates to OpenShift. The images referenced by the template must be available in a docker registry
-    * `systemtests`  - run systemtests
+   * `build`        - build
+   * `test`         - run tests
+   * `package`      - create artifact bundle
+   * `docker_build` - build docker image
+   * `docker_tag`   - tag docker image
+   * `docker_push`  - push docker image
+   * `deploy`       - deploys the built templates to OpenShift. The images referenced by the template must be available in a docker registry
+   * `systemtests`  - run systemtests
 
 Some of these tasks can be configured using environment variables as listed below.
 
@@ -106,11 +110,11 @@ Some of these tasks can be configured using environment variables as listed belo
 There are several environment variables that control the behavior of the build. Some of them are
 only consumed by some tasks:
 
-    * OPENSHIFT_MASTER  - URL to OpenShift master. Consumed by `deploy` and `systemtests` targets
-    * OPENSHIFT_USER    - OpenShift user. Consumed by `deploy` target
-    * OPENSHIFT_PASSWD  - OpenShift password. Consumed by `deploy` target
-    * OPENSHIFT_TOKEN   - OpenShift token. Consumed by `systemtests` target
-    * OPENSHIFT_PROJECT - OpenShift project for EnMasse. Consumed by `deploy` and `systemtests` targets
-    * DOCKER_ORG        - Docker organization for EnMasse images. Consumed by `build`, `package`, `docker*` targets. tasks. Defaults to `enmasseproject`
-    * DOCKER_REGISTRY   - Docker registry for EnMasse images. Consumed by `build`, `package`, `docker_tag` and `docker_push` targets. Defaults to `docker.io`
-    * TAG               - Tag used as docker image tag in snapshots and in the generated templates. Consumed by `build`, `package`, `docker_tag` and `docker_push` targets.
+   * OPENSHIFT_MASTER  - URL to OpenShift master. Consumed by `deploy` and `systemtests` targets
+   * OPENSHIFT_USER    - OpenShift user. Consumed by `deploy` target
+   * OPENSHIFT_PASSWD  - OpenShift password. Consumed by `deploy` target
+   * OPENSHIFT_TOKEN   - OpenShift token. Consumed by `systemtests` target
+   * OPENSHIFT_PROJECT - OpenShift project for EnMasse. Consumed by `deploy` and `systemtests` targets
+   * DOCKER_ORG        - Docker organization for EnMasse images. Consumed by `build`, `package`, `docker*` targets. tasks. Defaults to `enmasseproject`
+   * DOCKER_REGISTRY   - Docker registry for EnMasse images. Consumed by `build`, `package`, `docker_tag` and `docker_push` targets. Defaults to `docker.io`
+   * TAG               - Tag used as docker image tag in snapshots and in the generated templates. Consumed by `build`, `package`, `docker_tag` and `docker_push` targets.

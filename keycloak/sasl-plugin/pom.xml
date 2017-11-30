@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.enmasse</groupId>
     <artifactId>keycloak</artifactId>
-    <version>0.15.1</version>
+    <version>0.15.2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>sasl-plugin</artifactId>
@@ -79,7 +79,6 @@
         <artifactId>maven-shade-plugin</artifactId>
         <version>${maven.shade.version}</version>
         <configuration>
-          <finalName>sasl-plugin</finalName>
           <artifactSet>
             <excludes>
               <!--<exclude>io.netty:netty-codec</exclude>-->
