@@ -17,7 +17,7 @@
       <directory>../sasl-plugin/target</directory>
       <outputDirectory>/providers</outputDirectory>
       <includes>
-          <include>sasl-plugin.jar</include>
+          <include>sasl-plugin*.jar</include>
       </includes>
     </fileSet>
     <fileSet>
