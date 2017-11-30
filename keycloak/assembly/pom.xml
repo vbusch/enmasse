@@ -15,7 +15,7 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
         	<descriptor>src/assembly/bin.xml</descriptor>
-          <finalName>keycloak</finalName>
+          <finalName>keycloak-$(VERSION)</finalName>
         </configuration>
         <executions>
         	<execution>

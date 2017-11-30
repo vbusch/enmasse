@@ -18,6 +18,6 @@ build_tar:
 	cp -r shutdown-hook/src/main/sh/shutdown-hook.sh $(ARTIFACT_BASE)/shutdown-hook/
 	tar -czf build/artemis-image.tar -C build/artemis-image .
 
-package: build_tar build/apache-artemis-bin.tar.gz
+package: build_tar build/apache-artemis-bin-$(VERSION).tar.gz
 
 .PHONY: build_tar
