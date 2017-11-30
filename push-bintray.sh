@@ -2,7 +2,7 @@
 
 #BINTRAY_DIR = releases | snapshots
 curl -T address-controller/target/address-controller-{VERSION}.jar -u ${BINTRAY_USER}:${BINTRAY_PASSWORD} -H "X-Bintray-Package:enmasse" -H "X-Bintray-Version:${VERSION}" -H "X-Bintray-Publish: 1" -H "X-Bintray-Override: 1" https://api.bintray.com/content/enmasse/${BINTRAY_DIR}/
-curl -T artemis/build/artemis-image-{VERSION}.tar -u ${BINTRAY_USER}:${BINTRAY_PASSWORD} -H "X-Bintray-Package:enmasse" -H "X-Bintray-Version:${VERSION}" -H "X-Bintray-Publish: 1" -H "X-Bintray-Override: 1" https://api.bintray.com/content/enmasse/${BINTRAY_DIR}/
+curl -T artemis/build/artemis-image-{VERSION}.tar.gz -u ${BINTRAY_USER}:${BINTRAY_PASSWORD} -H "X-Bintray-Package:enmasse" -H "X-Bintray-Version:${VERSION}" -H "X-Bintray-Publish: 1" -H "X-Bintray-Override: 1" https://api.bintray.com/content/enmasse/${BINTRAY_DIR}/
 curl -T configserv/target/configserv-{VERSION}.jar -u ${BINTRAY_USER}:${BINTRAY_PASSWORD} -H "X-Bintray-Package:enmasse" -H "X-Bintray-Version:${VERSION}" -H "X-Bintray-Publish: 1" -H "X-Bintray-Override: 1" https://api.bintray.com/content/enmasse/${BINTRAY_DIR}/
 curl -T agent/build/agent-{VERSION}.tgz -u ${BINTRAY_USER}:${BINTRAY_PASSWORD} -H "X-Bintray-Package:enmasse" -H "X-Bintray-Version:${VERSION}" -H "X-Bintray-Publish: 1" -H "X-Bintray-Override: 1" https://api.bintray.com/content/enmasse/${BINTRAY_DIR}/
 curl -T keycloak/assembly/target/keycloak-bin-{VERSION}.tar.gz -u ${BINTRAY_USER}:${BINTRAY_PASSWORD} -H "X-Bintray-Package:enmasse" -H "X-Bintray-Version:${VERSION}" -H "X-Bintray-Publish: 1" -H "X-Bintray-Override: 1" https://api.bintray.com/content/enmasse/${BINTRAY_DIR}/
