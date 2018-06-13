@@ -92,8 +92,6 @@ data:
             - env:
               - name: LINK_CAPACITY
                 value: ${ROUTER_LINK_CAPACITY}
-              - name: ALLOW_DURABLE_SUBSCRIPTIONS
-                value: ${ALLOW_DURABLE_SUBSCRIPTIONS}
               - name: AUTHENTICATION_SERVICE_HOST
                 value: ${AUTHENTICATION_SERVICE_HOST}
               - name: AUTHENTICATION_SERVICE_PORT
@@ -703,8 +701,6 @@ data:
                       value: ${ADDRESS}
                     - name: LINK_CAPACITY
                       value: ${ROUTER_LINK_CAPACITY}
-                    - name: ALLOW_DURABLE_SUBSCRIPTIONS
-                      value: ${ALLOW_DURABLE_SUBSCRIPTIONS}
                     - name: AUTHENTICATION_SERVICE_HOST
                       value: ${AUTHENTICATION_SERVICE_HOST}
                     - name: AUTHENTICATION_SERVICE_PORT
@@ -854,9 +850,6 @@ data:
     - description: The link capacity setting for router
       name: ROUTER_LINK_CAPACITY
       value: '50'
-    - description: Whether AMQP based durable subscriptions to topics are allowed
-      name: ALLOW_DURABLE_SUBSCRIPTIONS
-      value: 'true'
     - description: The hostname to use for the exposed route for messaging
       name: MESSAGING_HOSTNAME
     - description: The hostname to use for the exposed route for MQTT
@@ -1011,8 +1004,6 @@ data:
             - env:
               - name: LINK_CAPACITY
                 value: ${ROUTER_LINK_CAPACITY}
-              - name: ALLOW_DURABLE_SUBSCRIPTIONS
-                value: ${ALLOW_DURABLE_SUBSCRIPTIONS}
               - name: AUTHENTICATION_SERVICE_HOST
                 value: ${AUTHENTICATION_SERVICE_HOST}
               - name: AUTHENTICATION_SERVICE_PORT
@@ -1622,8 +1613,6 @@ data:
                       value: ${ADDRESS}
                     - name: LINK_CAPACITY
                       value: ${ROUTER_LINK_CAPACITY}
-                    - name: ALLOW_DURABLE_SUBSCRIPTIONS
-                      value: ${ALLOW_DURABLE_SUBSCRIPTIONS}
                     - name: AUTHENTICATION_SERVICE_HOST
                       value: ${AUTHENTICATION_SERVICE_HOST}
                     - name: AUTHENTICATION_SERVICE_PORT
@@ -1940,9 +1929,6 @@ data:
     - description: The link capacity setting for router
       name: ROUTER_LINK_CAPACITY
       value: '50'
-    - description: Whether AMQP based durable subscriptions to topics are allowed
-      name: ALLOW_DURABLE_SUBSCRIPTIONS
-      value: 'true'
     - description: The hostname to use for the exposed route for messaging
       name: MESSAGING_HOSTNAME
     - description: The hostname to use for the exposed route for MQTT
