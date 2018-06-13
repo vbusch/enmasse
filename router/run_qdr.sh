@@ -24,10 +24,6 @@ fi
 DOLLAR='$' envsubst < /etc/qpid-dispatch/qdrouterd.conf.template > /tmp/qdrouterd.conf
 if [ -n "$TOPIC_NAME" ]; then
     export ADDRESS_NAME=$TOPIC_NAME;
-    envsubst < /etc/qpid-dispatch/colocated-topic.snippet >> /tmp/qdrouterd.conf
-fi
-if [ -n "$SUBSCRIPTION_SERVICE_HOST" ]; then
-    envsubst < /etc/qpid-dispatch/subscriptions.snippet >> /tmp/qdrouterd.conf
 fi
 if [ -n "$AMQP_KAFKA_BRIDGE_SERVICE_HOST" ]; then
     envsubst < /etc/qpid-dispatch/amqp-kafka-bridge.snippet >> /tmp/qdrouterd.conf
