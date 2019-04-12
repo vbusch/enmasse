@@ -145,9 +145,9 @@ class MessagingInstances extends React.Component {
     //https://github.com/patternfly/patternfly-react/issues/1482 no verticle align
     if (instances) {
       let newMap = instances.map(instance => {
-        let status = (instance.isReady) ?
-          <Aux><CheckCircleIcon style={{color: 'var(--pf-global--success-color--100)'}}/> Ready</Aux> :
-          <Aux><TimesCircleIcon style={{color: 'var(--pf-global--danger-color--100)'}}/> Not Ready</Aux>;
+        let status = (instance.phase == Failed) ?
+          <Aux><TimesCircleIcon style={{color: 'var(--pf-global--danger-color--100)'}}/> {phase}</Aux> :
+          <Aux><CheckCircleIcon style={{color: 'var(--pf-global--success-color--100)'}}/> {phase}</Aux>;
 
         return {
           cells: [

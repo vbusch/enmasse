@@ -17,7 +17,7 @@ const translateAddressSpaces = addressSpaces => {
         namespace.kind,
         namespace.spec.type,
         namespace.metadata.creationTimestamp,
-        namespace.status.isReady,
+        namespace.status.phase,
         consoleUrl);
     });
     return translation;
