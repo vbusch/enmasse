@@ -146,8 +146,8 @@ class MessagingInstances extends React.Component {
     if (instances) {
       let newMap = instances.map(instance => {
         let status = (instance.phase == Failed) ?
-          <Aux><TimesCircleIcon style={{color: 'var(--pf-global--danger-color--100)'}}/> {phase}</Aux> :
-          <Aux><CheckCircleIcon style={{color: 'var(--pf-global--success-color--100)'}}/> {phase}</Aux>;
+          <Aux><TimesCircleIcon style={{color: 'var(--pf-global--danger-color--100)'}}/> {instance.phase}</Aux> :
+          <Aux><CheckCircleIcon style={{color: 'var(--pf-global--success-color--100)'}}/> {instance.phase}</Aux>;
 
         return {
           cells: [
