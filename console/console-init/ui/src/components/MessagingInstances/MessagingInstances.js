@@ -22,7 +22,7 @@ import InstancesActionKebab from './InstancesActionKebab/InstancesActionKebab';
 import DeleteInstanceModal from './Delete/DeleteInstanceModal';
 import {NotificationConsumer} from "../../context/notification-manager";
 
-import {CheckCircleIcon, TimesCircleIcon} from '@patternfly/react-icons';
+import {CheckCircleIcon, TimesCircleIcon, InProgressIcon, HourglassStartIcon} from '@patternfly/react-icons';
 
 class MessagingInstances extends React.Component {
 
@@ -145,10 +145,18 @@ class MessagingInstances extends React.Component {
     //https://github.com/patternfly/patternfly-react/issues/1482 no verticle align
     if (instances) {
       let newMap = instances.map(instance => {
-        let status = (instance.phase == Failed) ?
-          <Aux><TimesCircleIcon style={{color: 'var(--pf-global--danger-color--100)'}}/> {instance.phase}</Aux> :
-          <Aux><CheckCircleIcon style={{color: 'var(--pf-global--success-color--100)'}}/> {instance.phase}</Aux>;
+        let icon;
 
+        if (instance.phase == 'Active') {
+          icon = <CheckCircleIcon style={{color: 'var(--pf-global--success-color--100)'}}/>;
+        } else if (instance.phase == 'Pending') {
+          icon = <HourglassStartIcon />;
+        } else if (instance.phase == 'Configuring') {
+          icon = <InProgressIcon/>;
+        } else {
+          icon = <TimesCircleIcon style={{color: 'var(--pf-global--danger-color--100)'}}/>;
+        }
+        let status = <Aux>{(icon)} {instance.phase}</Aux>;
         return {
           cells: [
             {title: <Aux><a href={instance.consoleUrl}>{instance.name}</a><Text>{instance.namespace}</Text></Aux>},
