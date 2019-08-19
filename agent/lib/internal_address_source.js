@@ -193,12 +193,18 @@ AddressSource.prototype.update_readiness = function (changes) {
 
 AddressSource.prototype.updated = function (objects) {
     log.debug('addresses updated: %j', objects);
-    var addresses = objects.map(extract_address).filter(is_defined).map(extract_spec);
-    var changes = this.get_changes('addresses_defined', addresses, same_address_definition_and_status);
-    if (changes) {
-        this.update_readiness(changes);
-        this.dispatch('addresses_defined', addresses, changes.description);
-        this.dispatch_if_changed('addresses_ready', objects.map(extract_address).filter(ready).map(extract_spec), same_address_definition);
+    if (this.listenerCount('addresses_defined') ===0  || this.listenerCount('addresses_ready') === 0) {
+        setTimeout(() => {
+            this.updated(objects);
+        }, 5000);
+    } else {
+        var addresses = objects.map(extract_address).filter(is_defined).map(extract_spec);
+        var changes = this.get_changes('addresses_defined', addresses, same_address_definition_and_status);
+        if (changes) {
+            this.update_readiness(changes);
+            this.dispatch('addresses_defined', addresses, changes.description);
+            this.dispatch_if_changed('addresses_ready', objects.map(extract_address).filter(ready).map(extract_spec), same_address_definition);
+        }
     }
 };
 
