@@ -41,8 +41,7 @@ describe('broker controller', function() {
 
     afterEach(function(done) {
         broker.close();
-        controller.close();
-        done();
+        controller.close().then(() => done());
     });
 
     it('creates a queue', function(done) {
